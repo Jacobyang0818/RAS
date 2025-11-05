@@ -1,0 +1,14 @@
+[project]
+name = "report-automation-system"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "datetime>=5.5",
+    "markdown>=3.10",
+    "matplotlib>=3.10.7",
+    "pandas>=2.3.3",
+    "pyside6>=6.10.0",
+    "watchfiles>=1.1.1",
+]
