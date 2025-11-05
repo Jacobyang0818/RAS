@@ -7,6 +7,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import markdown
 from datetime import datetime
+import argparse
 
 # ---------------- 工具 ----------------
 
@@ -112,9 +113,7 @@ if __name__ == "__main__":
     BASE = os.path.dirname(os.path.abspath(__file__))             # .../projects/Report_Automation_System/src
     ROOT = os.path.abspath(os.path.join(BASE, ".."))              # .../projects/Report_Automation_System
 
-    FILES_DIR = os.path.join(ROOT, "files")
     TEMPLATE_MD = os.path.join(ROOT, "templates/pdf_templates.md")          # 你的模板放 src/pdf_templates.md
-    
     
     generated_on_filename = datetime.now().strftime("%Y-%m-%d")
     OUTPUT_DIR = os.path.join(ROOT, "output")
@@ -128,10 +127,16 @@ if __name__ == "__main__":
     if not os.path.isfile(WEASY_EXE):
         raise FileNotFoundError(f"找不到 weasyprint.exe：{WEASY_EXE}")
 
-    # 讀資料
-    sales = pd.read_csv(os.path.join(FILES_DIR, "sales.csv"))
-    sales_info = pd.read_csv(os.path.join(FILES_DIR, "sales_info.csv"))
-    client = pd.read_csv(os.path.join(FILES_DIR, "client.csv"))
+    # 存取參數
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--sales", required=True, help="Path to sales.csv")
+    parser.add_argument("--sales-info", required=True, help="Path to sales_info.csv")
+    parser.add_argument("--client", required=True, help="Path to client.csv")
+    args = parser.parse_args()
+
+    sales = pd.read_csv(args.sales)
+    sales_info = pd.read_csv(args.sales_info)
+    client = pd.read_csv(args.client)
 
     # 聚合與作圖
     by_client = group_by_client_name(sales, sales_info, client, top_n=6)
@@ -161,7 +166,7 @@ if __name__ == "__main__":
         "total_rev": total_rev,
         "top_client": top_client,
         "top_product": top_product,
-        "generated_on": generated_on,          # ← 新增
+        "generated_on": generated_on,
     })
 
     # Markdown -> HTML（保留你在 md 裡的 <style> 與 HTML）

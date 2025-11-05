@@ -541,7 +541,7 @@ class ReportAutomationGUI(QMainWindow):
 
         for f in sorted(self.monitored_set):
             try:
-                self._run_task(f)  # 實際任務
+                self._run_task()  # 實際任務
                 self.result_text.append(f"✅ Done: {f}")
                 succeeded += 1
             except Exception as e:
@@ -552,7 +552,7 @@ class ReportAutomationGUI(QMainWindow):
         self.status_label.setText(f"Done. {succeeded} ok, {failed} fail.")
         self.result_text.append(f"⏱ 完成。耗時 {secs:.1f}s")
 
-    def _run_task(self, file_path: str):
+    def _run_task(self):
         # 如果已在跑，就不重複啟動
         if self.proc and self.proc.state() != QProcess.NotRunning:
             self.result_text.append("ℹ️ Task is still running…")
@@ -564,10 +564,46 @@ class ReportAutomationGUI(QMainWindow):
 
         self.result_text.append(f"▶ Running: {python_exe} {task_py}")
         self.status_label.setText("Running task...")
+        
+        # -------------------------
+        sales_path = None
+        sales_info_path = None
+        client_path = None
 
+        for p in self.monitored_set:
+            name = Path(p).name.lower()
+            if name == "sales.csv":
+                sales_path = p
+            elif name == "sales_info.csv":
+                sales_info_path = p
+            elif name == "client.csv":
+                client_path = p
+        print(sales_path)
+        print(sales_info_path)
+        print(client_path)
+
+        # 檢查是否三個都找到
+        missing = []
+        if sales_path is None:
+            missing.append("sales.csv")
+        if sales_info_path is None:
+            missing.append("sales_info.csv")
+        if client_path is None:
+            missing.append("client.csv")
+
+        if missing:
+            raise FileNotFoundError(f"❌ 以下檔案未在 monitored_set 中找到: {', '.join(missing)}")
+        
+        # -------------------------
         self.proc = QProcess(self)
         self.proc.setProgram(python_exe)
-        self.proc.setArguments([task_py])
+        self.proc.setArguments([
+            task_py,
+            "--sales", sales_path,
+            "--sales-info", sales_info_path,
+            "--client", client_path,
+        ])
+        # -------------------------
 
         # 可選：設定工作目錄；task.py 內已用 __file__ 取路徑，這行可有可無
         self.proc.setWorkingDirectory(str(base))
