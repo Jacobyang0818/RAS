@@ -1,4 +1,0 @@
-1.  schedules 需要檢查有沒有重複(這個再思考一下)、也要排除過期的單次排程
-2.  設計data_processing、report_generater等功能
-3.  記得 ---> 若schedules或monitored files為空，則跳警告。
-

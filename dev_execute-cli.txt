@@ -1,7 +1,0 @@
-# Check the execute file path about python
-PS C:\Users\ADMIN\Desktop\work\nycu_AI_Architect\projects\Report Automation System> uv run python -c "import sys; print(sys.executable)"
-C:\Users\ADMIN\Desktop\work\nycu_AI_Architect\projects\.venv\Scripts\python.exe
-
-# Use the execute file path to execute main.py
-PS C:\Users\ADMIN\Desktop\work\nycu_AI_Architect\projects\Report Automation System> 
-uv run watchfiles --ignore-paths ".git,.venv" --filter python --target-type=command "C:\Users\ADMIN\Desktop\work\nycu_AI_Architect\projects\.venv\Scripts\python.exe main.py"
