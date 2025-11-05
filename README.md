@@ -106,6 +106,3 @@ Edit this function in `main.py` to define how each file is processed:
 def _run_task(self, file_path):
     pass
 ```
-
-## License
-MIT
