@@ -66,6 +66,25 @@ Click `Setting Report Time` to configure:
 Scheduling ON → system checks and runs when time matches  
 Scheduling OFF → no automatic execution
 
+### 5. Report Output
+
+After the report is executed, the generated files will be stored in the `output/` directory.
+
+| Format | File Name Pattern | Description |
+|--------|------------------|-------------|
+| **HTML** | `output/report_{timestamp}.html` | Viewable directly in any web browser |
+| **PDF** | `output/report_{timestamp}.pdf` | Suitable for sharing, archiving, or printing |
+
+**File Name Parameters:**
+
+- `{timestamp}` — Execution time in the format `YYYY-MM-DD`
+
+**Examples:**
+```
+output/report_2025-02-14.html
+output/report_2025-02-14.pdf
+```
+
 ## System Tray Behavior
 Closing the window hides the app to tray instead of exiting.  
 To exit completely: right-click tray icon → Exit.
