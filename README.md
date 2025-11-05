@@ -89,7 +89,7 @@ Generated files are stored in the `output/` folder:
 
 | Type | Example | Notes |
 |------|---------|-------|
-| **HTML** | `output/report_2025-02-14.html` | Viewable in browser |
+| **HTML** | `output/report_2025-02-14.html` | A temperate file for convert to PDF |
 | **PDF** | `output/report_2025-02-14.pdf` | Ready to share or archive |
 
 ---
