@@ -3,5 +3,5 @@ __pycache__/
 *.pyc
 *.csv
 *.html
-*pdf
-*ipynb
+*.pdf
+*.ipynb
